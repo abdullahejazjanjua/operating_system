@@ -7,6 +7,12 @@
 *.obj
 *.elf
 
+# MacOS shit
+.DS_Store
+
+# Code editor
+.zed
+
 # Linker output
 *.ilk
 *.map
