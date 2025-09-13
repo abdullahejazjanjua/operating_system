@@ -1,6 +1,12 @@
 /*
- This runs simultaneously
- ./out.exe "A" &; ./out.exe "B" &; ./out.exe "C"
+When the code is run using:
+ ./out.exe "A" & ./out.exe "B"
+
+This runs simutaneously i.e "A" and "B" are printed at the same time:
+    A
+    B
+    A
+    B
 
  On a single core processor, the OS does "magic" and runs them simultaneously making
  it seem like that all the programs (processes) are runnnig simultaneously
