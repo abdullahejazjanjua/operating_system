@@ -2,7 +2,20 @@
 
 This repository contains assignments, lab tasks, and independent practice for Operating Systems that I completed during my Bachelor's at GIKI.
 
-# Download the Book
+## Directory Structure
+
+```
+chapter_name/
+├── p1.c # These are codes in the book
+├── p2.c
+└── ...
+├── homework/
+│   ├── q1.c # These are my solutions to homework problems
+│   ├── q2.c
+│   └── ...
+```
+
+## Download the Book
 
 To download the book, execute the following commands:
 
