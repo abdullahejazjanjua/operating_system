@@ -6,7 +6,7 @@ This repository contains assignments, lab tasks, and independent practice for Op
 
 ```
 chapter_name/
-├── p1.c # These are codes in the book
+├── p1.c # These are codes in the book or my own experiments
 ├── p2.c
 └── ...
 ├── homework/
