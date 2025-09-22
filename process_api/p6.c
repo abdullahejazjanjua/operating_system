@@ -15,7 +15,7 @@
 int main()
 {
     int rc = fork();
-    int parent_pid = getpid(); // Once fork() is called, then PC is here
+    int pid = getpid(); // Once fork() is called, then PC is here
     //exit(0); // So, calling exit or kill here will stop both processes as they share the same code
     if (rc < 0)
     {
@@ -23,12 +23,12 @@ int main()
     }
     else if (rc == 0)
     {
-        printf("Hello, I am the child process (PID: %d)\n", getpid());
+        printf("Hello, I am the child process (PID: %d)\n", pid);
     }
     else
     {
-        printf("Hello, I am the parent of %d (PID: %d)\n", rc, parent_pid);
-        kill(parent_pid, SIGKILL);
+        printf("Hello, I am the parent of %d (PID: %d)\n", rc, pid);
+        kill(pid, SIGKILL);
         printf("I am killed, I shouldn't run\n");
     }
 }

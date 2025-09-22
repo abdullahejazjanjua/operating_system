@@ -12,7 +12,7 @@ int main()
 {
     int x = 100;
     int rc = fork();
-    if (rc < 0)
+    if (rc < 0) // <-- PC is here after forked is called, so x = 100 for both processes
     {
         fprintf(stderr, "Process creation failed\n");
         exit(1);
