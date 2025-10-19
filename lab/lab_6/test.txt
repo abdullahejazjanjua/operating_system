@@ -1,0 +1,3 @@
+My name is Khan and I am not a terrorist!
+
+I am writing to a file from fprintf

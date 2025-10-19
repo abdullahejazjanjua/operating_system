@@ -1,0 +1,5 @@
+This is a dummy text file.
+It contains some statements.
+The statements are not meaningful.
+They are just for demonstration purposes.
+You can replace them with your own text.
