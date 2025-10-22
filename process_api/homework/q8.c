@@ -1,28 +1,7 @@
 /*
-`dup2` Example
 
-Let's say we have the following file descriptors:
-
-| File Descriptor | File |
-| --- | --- |
-| 0 | file1 |
-| 1 | file2 |
-| 2 | file3 |
-| 3 | file4 |
-
-If we call `dup2(1, 3);`, the file descriptor table will change as follows:
-    - dup2(old_filedesc, new_filedesc)
-
-| File Descriptor | File |
-| --- | --- |
-| 0 | file1 |
-| 1 | file2 |
-| 2 | file3 |
-| 3 | file2 |
-
-In this case:
-    - It will duplicate old_filedesc's File and assign it to new_filedesc's File
-    - So now, Any writes to file descriptor 3 will now go to file2.
+    * dup2(old_filedesc, new_filedesc)
+    * It will duplicate old_filedesc's File and assign it to new_filedesc's File
  */
 
 #include <stdio.h>
