@@ -1,7 +1,7 @@
 /*
   - We are closing the Standard output file.
-  - Then we open a new file
-  - Any printf call writes it to that new file and doesn't print it to the terminal.
+  - Then we open a new file, it will assigned the lowest avialable fd in this case stdout's fd
+  - Thus, any printf call writes it to the new file and doesn't print it to the terminal.
  */
 
 #include <stdio.h>

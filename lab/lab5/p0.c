@@ -1,3 +1,7 @@
+/*
+    *  argv is an array of pointers pointing to the address of a null-terminated string.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[])

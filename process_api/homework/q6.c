@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     else if (rc == 0)
     {
         // printf("I am child process (PID: %d)\n", getpid());
-        int wc = waitpid(getpid(), 0, 0);
+        int wc = waitpid(getpid(), 0, 0); // As child has no children of its own, -1 is returned
         printf("I am child process (wc: %d) (PID: %d)\n", wc, getpid());
         printf("Wait executed with error: %d\n", errno);
     }

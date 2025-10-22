@@ -7,17 +7,17 @@ int main()
     FILE *f = fopen("data.csv", "r");
     if (f == NULL)
     {
-        strerror(errno);
+        perror("fopen");
         return 1;
     }
     char name[1024], country[1024], ch;
     char age[1024];
-    
+
     while((ch = fgetc(f)) != '\n' && ch != EOF)
     {
         continue;
     }
-    while(fscanf(f, "%[^,],%[^,],%[^\n]%*c", name, age, country) != EOF) 
+    while(fscanf(f, "%[^,],%[^,],%[^\n]%*c", name, age, country) != EOF)
     {
         printf("%s, %s, %s\n", name, age, country);
     }

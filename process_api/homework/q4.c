@@ -20,17 +20,21 @@ The base of each is exec, followed by one or more letters:
 #include <stdlib.h>
 #include <errno.h>
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
         fprintf(stderr, "Usage: ./out.exe test");
     }
 
     int rc = fork();
-    if (rc < 0) {
+    if (rc < 0)
+    {
         fprintf(stderr, "Process creation failed\n");
         exit(1);
     }
-    else if (rc == 0) {
+    else if (rc == 0)
+    {
         printf("I am the child (PID: %d)\n", getpid());
         // printf("Using execl\n");
         // execl("/bin/ls", "ls", argv[1], (char*) NULL);
@@ -39,7 +43,8 @@ int main(int argc, char *argv[]) {
         execv("/bin/ls", args);
         printf("exec failed with error: %d\n", errno);
     }
-    else {
+    else
+    {
         printf("I am the parent of %d (PID: %d)\n", rc, getpid());
     }
 }

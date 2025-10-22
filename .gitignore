@@ -7,6 +7,10 @@
 *.obj
 *.elf
 
+# C intermediate files
+.i
+.s
+
 # MacOS shit
 .DS_Store
 

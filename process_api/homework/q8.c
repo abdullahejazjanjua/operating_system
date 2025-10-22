@@ -45,19 +45,23 @@ int main(int argc, char **argv) {
     }
 
     int rc_1 = fork();
-    if (rc_1 < 0) {
+    if (rc_1 < 0)
+    {
         fprintf(stderr, "Process 1 creation failed\n");
         exit(1);
     }
-    else if (rc_1 == 0) {
+    else if (rc_1 == 0)
+    {
         printf("I am the first child (PID: %d) \n", getpid());
         dup2(p[1], STDOUT_FILENO); // std_out has it's file changed to file of p[1]
         close(p[1]);
         execl("/bin/ls", "ls", argv[1], (char*) NULL);
     }
-    else {
+    else
+    {
         int rc_2 = fork();
-        if (rc_2 < 0) {
+        if (rc_2 < 0)
+        {
             fprintf(stderr, "Process 2 creation failed\n");
             exit(1);
         }
@@ -68,7 +72,8 @@ int main(int argc, char **argv) {
             close(p[0]);
             execl("/usr/bin/grep", "grep", "test0", (char*) NULL);
         }
-        else {
+        else
+        {
             while(wait(0) != -1);
             exit(0);
         }

@@ -39,10 +39,12 @@ int main(int argc, char *argv[])
         int wc = wait(&status);
         printf("I am parent process of %d (wc: %d) (PID: %d)\n", rc, wc, getpid());
         // printf("I am parent process of %d (PID: %d)\n", rc, getpid());
-        if (WIFEXITED(status)) {
+        if (WIFEXITED(status))
+        {
             printf("Yes, process terminated normally\n");
         }
-        else {
+        else
+        {
             printf("No, process terminated normally\n");
         }
     }

@@ -12,15 +12,18 @@
 
 int main() {
     int rc = fork();
-    if (rc < 0) {
+    if (rc < 0)
+    {
         fprintf(stderr, "Process creation failed\n");
         exit(1);
     }
-    else if (rc == 0) {
+    else if (rc == 0)
+    {
         printf("Hello\n");
         kill(getppid(), SIGCONT);
     }
-    else {
+    else
+    {
         kill(getpid(), SIGSTOP);
         printf("Goodbye\n");
     }

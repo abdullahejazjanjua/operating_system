@@ -5,7 +5,7 @@
 int main()
 {
     int rc = fork();
-    if (rc == -1)
+    if (rc < -1)
     {
         fprintf(stderr, "fork failed\n");
         return 1;
