@@ -127,14 +127,16 @@ int main()
      	pthread_join(tids[i], (void **) &ret);
       	if(ret->idx != -1)
        	{
-       		idx2 = (i * size_per_thread) + ret->idx; // compute global index
+      		long global_idx = (i * size_per_thread) + ret->idx; // compute global index
+            if (global_idx > idx2) 
+            {
+                idx2 = (int)global_idx;
+            }
         }
         free(ret);
     }
      
-     printf("using a separate thread found val=%d at index=%d\n", val, idx2);
-     printf("Found: %d\n", arr[idx2]);
-
+    printf("using %d threads found val=%d at index=%d\n", NTHREADS, val, idx2);
     free(arr);
     return 0;
 }
