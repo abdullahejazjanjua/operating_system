@@ -32,8 +32,8 @@
 #define N 1000000000
 #define MODULO 100000000
 
-int * make_array_random(long size) {
-
+int * make_array_random(long size) 
+{
     srand(time(NULL));
 
     int * arr = malloc(size*sizeof(long));
@@ -46,7 +46,8 @@ int * make_array_random(long size) {
 }
 
 
-int find_array(int *arr, long size, int val) {
+int find_array(int *arr, long size, int val) 
+{
     int idx = -1;
     for(long i=0; i<size; i++)
       if (arr[i]==val)
@@ -56,7 +57,8 @@ int find_array(int *arr, long size, int val) {
 }
 
 
-void *find_array_thread(void *arg) {
+void *find_array_thread(void *arg) 
+{
 
     /*
      * your implementation goes here.
