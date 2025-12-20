@@ -20,7 +20,7 @@
 #include <unistd.h>
 
 #define NPRODUCERS 10
-#define NCONSUMERS 5
+#define NCONSUMERS 10
 #define BUFFSIZE 10
 #define NVALUES 1000
 #define MODULO 99
@@ -29,24 +29,9 @@ pthread_cond_t pcond = PTHREAD_COND_INITIALIZER, ccond = PTHREAD_COND_INITIALIZE
 pthread_mutex_t mlock = PTHREAD_MUTEX_INITIALIZER;
 
 int BUFFER[BUFFSIZE];
-int head = 0, tail = 0, count = 0;
+int count = 0;
 
-int producer_sum = 0, consumer_sum = 0; // verifies correctness
-
-
-void put(int val)
-{
-	BUFFER[tail] = val;
-	tail = (tail + 1) % BUFFSIZE;
-}
-
-int get()
-{
-	int val = BUFFER[head];
-	head = (head + 1) % BUFFSIZE;
-	
-	return val;
-}
+int producer_sum = 0, consumer_sum = 0;
 
 void *producer(void *arg) 
 {
@@ -62,8 +47,7 @@ void *producer(void *arg)
 		}
 		
 		producer_sum += val;
-		put(val);
-		count++;
+		BUFFER[count++] = val;
 		printf("Producer: %d\n", val);
 		pthread_cond_signal(&ccond);
 		pthread_mutex_unlock(&mlock);
@@ -74,9 +58,9 @@ void *producer(void *arg)
 
 void *consumer(void *arg) 
 {
-	int items_per_consumer = (NPRODUCERS * NVALUES) / NCONSUMERS;
 
-	for(int i = 0; i < items_per_consumer; i++)
+	
+	for(int i = 0; i < NVALUES; i++)
 	{
 		pthread_mutex_lock(&mlock);
 		while(count == 0)
@@ -84,10 +68,9 @@ void *consumer(void *arg)
 			pthread_cond_wait(&ccond, &mlock);
 		}
 		
-		int val = get();
+		int val = BUFFER[--count];
 		printf("Consumer: %d\n", val);
 		consumer_sum += val;
-		count--;
 		
 		pthread_cond_signal(&pcond);
 		pthread_mutex_unlock(&mlock);
