@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <time.h>
 
 /*
  * BST Related data structures and functions
@@ -176,9 +177,10 @@ typedef struct thread_arg {
     int count;
 } thread_arg;
 
+pthread_mutex_t mlock;
 
 // comment line below to test large multithreadded
-#define SMALLSIZE
+// #define SMALLSIZE
 
 #ifdef SMALLSIZE
 #define NUMOPS 10
@@ -191,8 +193,8 @@ typedef struct thread_arg {
 #define NUMOPS 800000
 #define NUMTHREADS 8
 #define MODULAND 10000
-#define SEARCHBIN 9990
-#define INSERTBIN 9995
+#define SEARCHBIN 3333
+#define INSERTBIN 6666
 #define DELETEBIN 10000
 #endif
 
@@ -217,7 +219,6 @@ void init_ops (op *ops){
 
 // thread operations
 
-// node* test_tree (node* root) {
 node* test_tree () {
 
     groot = insert(groot, 7);
@@ -255,7 +256,9 @@ void * thread_func (void *arg) {
 
     fprintf(stdout, "Thread: count = %d\n", targ->count);
 
-    for (int i=0; i<targ->count; i++) {
+    for (int i=0; i<targ->count; i++) 
+    {
+    	pthread_mutex_lock(&mlock);
         fprintf(stdout, "Thread: Op[%d] = %d, val=%d\n",
                 i, targ->op_start[i].type, targ->op_start[i].val);
         if (targ->op_start[i].type == SEARCH)
@@ -264,6 +267,7 @@ void * thread_func (void *arg) {
             groot = insert (groot, targ->op_start[i].val);
         else if (targ->op_start[i].type == DELETE)
             groot = delete (groot, targ->op_start[i].val);
+        pthread_mutex_unlock(&mlock);
     }
 
     return NULL;
@@ -274,7 +278,8 @@ int main (int argc, char* argv[]){
 
     // see RandGen
     srand(time(NULL));
-
+    
+    pthread_mutex_init(&mlock, NULL);
     // test_tree();
     // return 0;
 
@@ -288,9 +293,10 @@ int main (int argc, char* argv[]){
     pthread_t tids[NUMTHREADS];
     thread_arg targs[NUMTHREADS];
     // create therads
-    for (int i=0; i<NUMTHREADS; i++) {
+    for (int i=0; i<NUMTHREADS; i++) 
+    {
         targs[i].count = NUMOPS/NUMTHREADS; // assume perfect division
-        targs[i].op_start = ops + i;
+        targs[i].op_start = ops + (i * targs[i].count);
         pthread_create( &tids[i], NULL, thread_func, &targs[i]);
     }
 
@@ -298,6 +304,7 @@ int main (int argc, char* argv[]){
         pthread_join( tids[i], NULL);
 
     print_tree_inorder(groot);
+    pthread_mutex_destroy(&mlock);
 
     return 0;
 }
