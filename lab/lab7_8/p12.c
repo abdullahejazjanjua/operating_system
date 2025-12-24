@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 		
 		argv++; // argv[0] is output file name
 		
-		execvp(argv[0], argv);
+		execvp(argv[0], argv); // sh -c "ls *.c | wc -l" : call shell (sh/bash) itself to run this with a single exec
 		printf("This shouldn't print\n");
 	}
 	else
